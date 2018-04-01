@@ -1,0 +1,6 @@
+Ez a java-ee képzés
+FileReader példa
+
+
+Egy új sort
+Még egy új sort
