@@ -1,0 +1,72 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>hu.training</groupId>
+	<artifactId>my-first-maven-app</artifactId>
+	<version>0.0.2-SNAPSHOT</version>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.7</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/junit/junit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<!-- Ez a plugin az altalam irt date time plugin, ami megtalalhato a mappaban. -->
+			<!-- Eloszor azt kell megbuildelni, hogy ez a projekt forduljon. -->
+			<!-- Ezzel a paranccsal lehet lefuttatni, ha nem határozunk meg executiont: -->
+			<!-- mvn hu.training:data-time-plugin:0.0.1-SNAPSHOT:date -->
+			<plugin>
+				<groupId>hu.training</groupId>
+				<artifactId>data-time-plugin</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+				<configuration>
+					<message>This is the parent project: </message>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<!-- Az itt látható cél a DateTimeMojo.java osztályban található. -->
+							<!-- A @Mojo annotációban van megadva. Az execute() hajtódik végre 
+								a compile fázisban. -->
+							<goal>date</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.6.0</version>
+				<executions>
+					<execution>
+						<phase>install</phase>
+						<goals>
+							<goal>java</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<mainClass>hu.training.app.MyFirstMavenApp</mainClass>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
