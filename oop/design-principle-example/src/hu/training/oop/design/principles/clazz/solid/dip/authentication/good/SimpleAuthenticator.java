@@ -11,7 +11,7 @@ public class SimpleAuthenticator implements Authenticator {
 
 	@Override
 	public boolean authenticate(User user) {
-		// logic - database
+		System.out.println("Authenticated by Simple");
 		return true;
 	}
 }

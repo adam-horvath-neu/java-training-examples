@@ -11,7 +11,7 @@ public class LDAPAuthenticator implements Authenticator {
 
 	@Override
 	public boolean authenticate(User user) {
-		// logic - LDAP
+		System.out.println("Authenticated by LDAP");
 		return true;
 	}
 
