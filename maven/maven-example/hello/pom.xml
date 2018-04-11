@@ -1,0 +1,48 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>hu.neuron.java</groupId>
+		<artifactId>parent</artifactId>
+		<version>0.0.1</version>
+	</parent>
+	<artifactId>app</artifactId>
+	<name>Hello Word</name>
+	<description>Hello Word</description>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	<properties>
+		<junit.vesion>3.8.1</junit.vesion>
+	</properties>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.2.1</version>
+				<configuration>
+					<mainClass>hu.neuron.java.Hello</mainClass>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>hu.neuron.java</groupId>
+				<artifactId>details-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+	<profiles>
+		<profile>
+			<id>run</id>
+			<build>
+				<defaultGoal>clean compile exec:java</defaultGoal>
+			</build>
+		</profile>
+	</profiles>
+
+
+</project>
