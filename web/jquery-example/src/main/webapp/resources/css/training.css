@@ -1,0 +1,63 @@
+@charset "UTF-8";
+body {
+	margin: 0px;
+}
+
+.navigation {
+	background-color: black;
+	color: white;
+}
+
+.navigation .nav-item {
+	display: inline-block;
+	background-color: green;
+	padding: 10px 20px;
+	font-size: 16px;
+}
+
+.navigation .nav-item:hover {
+	background-color: lightblue;
+	cursor: pointer;
+}
+
+.content {
+	text-align: center;
+	padding: 20px;
+}
+
+.element {
+	padding: 10px 20px;
+	background-color: red;
+	color: white;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.element.selected {
+	background-color: blue;	
+}
+
+img {
+	height: 400px;
+	border-radius: 1000px;
+}
+
+.img-nav {
+	display: inline-block;
+	background-color: green;
+	padding: 10px 20px;
+	font-size: 16px;
+}
+
+.img-nav:hover {
+	background-color: lightblue;
+	cursor: pointer;
+}
+
+#message.success {
+	color: green;
+}
+
+#message.failed {
+	color: red;
+}

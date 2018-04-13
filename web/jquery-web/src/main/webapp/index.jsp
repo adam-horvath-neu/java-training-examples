@@ -12,7 +12,17 @@
 	<script type="text/javascript"
 		src="https://code.jquery.com/jquery-3.3.1.js"></script>
 	<script type="text/javascript" src="resources/js/training.js"></script>
-	
-	<div>Hello world!</div>
+
+	<fieldset class="login">
+		<legend>Login</legend>
+		<form id="login-form">
+			<div id="message"></div>
+			<label for="username">Username: </label>
+			<input id="username" name="username"><br>
+			<label for="password">Password: </label>
+			<input id="password" name="password" type="password"><br>
+			<button id="login" disabled type="button">Login</button>
+		</form>
+	</fieldset>
 </body>
 </html>
