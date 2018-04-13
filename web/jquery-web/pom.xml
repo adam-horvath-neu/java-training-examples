@@ -54,7 +54,7 @@
 					<webApp>
 						<contextPath>/jquery-web</contextPath>
 					</webApp>
-
+					<contextXml>src/main/resources/jetty/jetty-config.xml</contextXml>
 				</configuration>
 			</plugin>
 			<plugin>
