@@ -1,0 +1,21 @@
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page language="java"  contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="template" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="blog-nav">
+          <a class="blog-nav-item ${(fn:endsWith(pageContext.request.servletPath,'/home.jsp') ? 'active' :'') } " href="<c:url value="/home.jsp"/>" >Home</a>
+          <a class="blog-nav-item ${(fn:endsWith(pageContext.request.servletPath,'/forwardExample.jsp') ? 'active' :'') } "  href="<c:url value="/forwardExample.jsp"/>" >Forward</a>
+          <a class="blog-nav-item ${(fn:endsWith(pageContext.request.servletPath,'/redirectExample.jsp') ? 'active' :'') } "  href="<c:url value="/redirectExample.jsp"/>" >Redirect</a>
+          <a class="blog-nav-item ${(fn:endsWith(pageContext.request.servletPath,'/includeExample.jsp') ? 'active' :'') } "  href="<c:url value="/includeExample.jsp"/>" >Include</a>
+          <a class="blog-nav-item ${(fn:endsWith(pageContext.request.servletPath,'/JSTLexample.jsp') ? 'active' :'') } " href="<c:url value="/JSTLexample.jsp"/>" >JSTLexample</a>
+          <a class="blog-nav-item ${(fn:endsWith(pageContext.request.servletPath,'/example.jsp') ? 'active' :'') } " href="<c:url value="/example.jsp"/>" >Example</a>
+          <a class="blog-nav-item ${(fn:endsWith(pageContext.request.servletPath,'/tagExample.jsp') ? 'active' :'') } " href="<c:url value="/tagExample.jsp"/>" >TagExample</a>
+          <a class="blog-nav-item ${(fn:endsWith(pageContext.request.servletPath,'/addition.jsp') ? 'active' :'') } " href="<c:url value="/addition.jsp"/>" >FromExample</a>
+        </nav>
+      </div>
+    </div>
