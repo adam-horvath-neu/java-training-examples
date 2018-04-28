@@ -12,27 +12,40 @@ import java.util.List;
 
 public class PreparedStatementExample {
 
+	private Connection connection;
+
 	public void insert(int i) {
-		Connection connection = null;
 		PreparedStatement statement = null;
 		ResultSet rs = null;
 		try {
-			connection = ConnectionFactory.getConnection();
+			if (getConnection() == null) {
 
+				setConnection(ConnectionFactory.getConnection());
+
+				getConnection().setAutoCommit(false);
+			}
 			String sql = "INSERT INTO REGISTRATION( last,first ) VALUES ( ?,? ) ";
-			statement = connection.prepareStatement(sql,
-					Statement.RETURN_GENERATED_KEYS);
+			statement = getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
 			statement.setString(1, "Bob" + i);
 			statement.setString(2, "Bob" + i);
 			statement.executeUpdate();
 
+			if(i>5){
+				throw new RuntimeException("asdsa");
+			}
 			rs = statement.getGeneratedKeys();
 
 			if (rs.next()) {
 				// System.out.println(rs.getLong(1));
 			}
+			
 		} catch (SQLException e) {
+			try {
+				getConnection().rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 			e.printStackTrace();
 		} finally {
 			try {
@@ -45,11 +58,11 @@ public class PreparedStatementExample {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			try {
-				connection.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+//			try {
+//				connection.close();
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
 
 		}
 	}
@@ -102,11 +115,14 @@ public class PreparedStatementExample {
 		PreparedStatement statement = null;
 		ResultSet rs = null;
 		try {
-			connection = PoolingDataSourceExample.getDataSource()
-					.getConnection();
+			if (getConnection() == null) {
+
+				setConnection(ConnectionFactory.getConnection());
+
+				getConnection().setAutoCommit(false);
+			}
 			String sql = "INSERT INTO REGISTRATION( last,first ) VALUES ( ?,? ) ";
-			statement = connection.prepareStatement(sql,
-					Statement.RETURN_GENERATED_KEYS);
+			statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
 			statement.setString(1, "Bob" + i);
 			statement.setString(2, "Bob" + i);
@@ -144,11 +160,9 @@ public class PreparedStatementExample {
 		PreparedStatement statement = null;
 		ResultSet rs = null;
 		try {
-			connection = PoolingDataSourceExample.getDataSource()
-					.getConnection();
+			connection = PoolingDataSourceExample.getDataSource().getConnection();
 			String sql = "INSERT INTO REGISTRATION( last,first ) VALUES ( ?,? ) ";
-			statement = connection.prepareStatement(sql,
-					Statement.RETURN_GENERATED_KEYS);
+			statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
 			for (int j = 0; j < i; j++) {
 
@@ -191,8 +205,7 @@ public class PreparedStatementExample {
 		ResultSet resultSet = null;
 		List<RegistrationDTO> rv = new ArrayList<RegistrationDTO>();
 		try {
-			connection = PoolingDataSourceExample.getDataSource()
-					.getConnection();
+			connection = PoolingDataSourceExample.getDataSource().getConnection();
 
 			String sql = "select * from REGISTRATION where last like('%b%')";
 			statement = connection.prepareStatement(sql);
@@ -227,5 +240,13 @@ public class PreparedStatementExample {
 
 		}
 		return rv;
+	}
+
+	public Connection getConnection() {
+		return connection;
+	}
+
+	public void setConnection(Connection connection) {
+		this.connection = connection;
 	}
 }

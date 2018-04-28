@@ -26,14 +26,13 @@ public class DAOTest extends TestCase {
 
 				dto.setId(id);
 
-			
-
 				dto.setFirstName("C");
-//				 if(true){
-//					 throw new RuntimeException();
-//				 }
 				 
 				dao.update(dto);
+				
+				if(true){
+					 throw new RuntimeException();
+				 }
 
 				instance.endTransaction();
 			} catch (Exception ex) {

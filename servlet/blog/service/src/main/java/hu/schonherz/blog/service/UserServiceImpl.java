@@ -12,6 +12,8 @@ import java.util.stream.Collectors;
 
 import com.google.gson.Gson;
 
+import hu.schonherz.blog.core.UserDao;
+import hu.schonherz.blog.core.UserDto;
 import hu.schonherz.blog.service.api.user.exception.UserNotFoundException;
 import hu.schonherz.blog.service.api.user.service.UserService;
 import hu.schonherz.blog.service.api.user.vo.User;
@@ -34,7 +36,7 @@ public class UserServiceImpl implements UserService {
 		Gson gson = new Gson();
 		ClassLoader classLoader = getClass().getClassLoader();
 		try (InputStream inputStream = classLoader.getResourceAsStream("example.txt");
-				BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"UTF-8"));) {
+				BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));) {
 
 			result = gson.fromJson(bufferedReader, UserResult.class);
 
@@ -49,14 +51,13 @@ public class UserServiceImpl implements UserService {
 	 * @return
 	 */
 	public User findUserByName(String name) throws UserNotFoundException {
-	
-		List<User> users = result.getResults();
-		for (User user : users) {
-			if (user.getLogin().getUsername().equals(name)) {
-				return user;
-			}
-		}
-		throw new UserNotFoundException();
 
+		UserDao dao = new UserDao();
+		UserDto userDto = dao.findByName(name);
+		if (userDto != null) {
+			return UserConverter.toUser(userDto);
+		} else {
+			throw new UserNotFoundException();
+		}
 	}
 }
