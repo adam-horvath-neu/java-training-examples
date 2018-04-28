@@ -1,0 +1,62 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/masterLayout.xhtml">
+
+
+	<ui:define name="pageTitle">#{out['profile.title']}</ui:define>
+
+	<ui:define name="head-extra">
+
+	</ui:define>
+
+	<ui:define name="content">
+
+		<div class="panel panel-default">
+
+			<div class="panel-heading">Profile</div>
+			<div class="panel-body">
+				<h:form id="form">
+
+					<p:messages></p:messages>
+
+
+					<div class="form-group row">
+
+						<h:outputLabel for="userName" value="Username"
+							styleClass="col-sm-2 col-form-label" />
+
+						<div class="col-sm-10">
+							<h:inputText id="userName" readonly="true"
+								styleClass="form-control" label="userName"
+								value="#{profileController.userVo.username}" />
+						</div>
+
+					</div>
+
+				</h:form>
+
+				<div class="form-group row">
+
+					<h:form enctype="multipart/form-data">
+
+
+						<p:fileUpload value="#{profileController.file}" mode="simple"
+							skinSimple="true" />
+
+						<p:commandButton value="Submit" ajax="false"
+							actionListener="#{profileController.upload}" />
+					</h:form>
+
+				</div>
+
+			</div>
+
+			
+		</div>
+
+	</ui:define>
+</ui:composition>

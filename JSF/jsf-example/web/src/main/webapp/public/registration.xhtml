@@ -1,0 +1,55 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/masterLayout.xhtml">
+
+    <ui:define name="pageTitle">#{out.signup_title}</ui:define>
+    <ui:define name="header"> </ui:define>
+
+    <ui:define name="head-extra">
+        <!-- custom css -->
+    </ui:define>
+
+    <ui:define name="content">
+        <div>
+
+            <h:form id="userFormId" prependId="false">
+                <p:messages id="messages" showDetail="true" 
+                            closable="true" />
+                <h:panelGrid columns="2" cellpadding="5">
+
+
+                    <h:panelGrid columns="2" id="matchGrid" cellpadding="5">
+                        <h:outputLabel id="outTxtUserNameId" value="#{out.username}"
+                                       name="outTxtUserNameNm"></h:outputLabel>
+                        <p:inputText id="userName" required="true"
+                                     value="#{registrationController.userName}"
+                                     requiredMessage="Please enter username" />
+
+                        <h:outputLabel for="pwd1" value="#{out.password}: " />
+                        <p:password id="pwd1" value="#{registrationController.password}" 
+                                    match="pwd2" label="Password 1" required="true" />
+
+                        <h:outputLabel for="pwd2" value="#{out.password2}: " />
+                        <p:password id="pwd2" value="#{registrationController.password2}"
+                                    label="Password 2" required="true" />
+
+                    </h:panelGrid>
+
+
+                    <div id="loginBtnPanelId">
+                        <p:commandButton id="btnLoginId" value="#{out.signup}"  update="messages"
+                                         action="#{registrationController.addUser()}" styleClass="loginPanelBtn"
+                                         icon="ui-icon-check" />
+                    </div>
+
+                </h:panelGrid>
+            </h:form>
+
+        </div>
+
+    </ui:define>
+</ui:composition>
