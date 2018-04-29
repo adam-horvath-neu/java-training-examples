@@ -21,6 +21,10 @@ public class UserSessionBean implements Serializable {
 		theme = "bootstrap";
 	}
 
+	public Boolean hasRole(String role) {
+		return user.getRoles().contains(role);
+	}
+
 	public UserVo getUser() {
 		return user;
 	}

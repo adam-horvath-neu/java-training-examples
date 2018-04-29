@@ -3,16 +3,27 @@ package hu.neuron.service.converter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import hu.neuron.core.dao.RoleDao;
-import hu.neuron.core.dao.impl.RoleDaoImpl;
 import hu.neuron.core.dto.RoleDto;
 import hu.neuron.core.dto.UserDto;
 import hu.neuron.service.vo.Gender;
 import hu.neuron.service.vo.UserVo;
 
+@Named
+@ApplicationScoped
 public class UserConverter {
 
-	public static UserVo toUserVo(UserDto dto) {
+	@Inject
+	private RoleDao roleDao;
+
+	@Inject
+	private RoleConverter roleConverter;
+
+	public UserVo toUserVo(UserDto dto) {
 		if (dto == null) {
 			return null;
 		}
@@ -24,14 +35,18 @@ public class UserConverter {
 			userVo.setGender(Gender.valueOf(dto.getGender()));
 		}
 		userVo.setImage(dto.getImage());
-		// RoleDao roleDao = new RoleDaoImpl();
 
-		// List<RoleDto> roles = roleDao.findRolesByUser(dto.getId());
-		// userVo.setRoles(roles);
+		userVo.setFirstname(dto.getFirstname());
+		userVo.setLastname(dto.getLastname());
+		userVo.setEmail(dto.getEmail());
+		userVo.setPhone(dto.getPhone());
+
+		List<RoleDto> roles = roleDao.findRolesByUser(dto.getId());
+		userVo.setRoles(roleConverter.toRoleVo(roles));
 		return userVo;
 	}
 
-	public static List<UserVo> toUserVo(List<UserDto> dtos) {
+	public List<UserVo> toUserVo(List<UserDto> dtos) {
 		List<UserVo> rv = new ArrayList<>();
 		for (UserDto dto : dtos) {
 			rv.add(toUserVo(dto));
@@ -39,7 +54,7 @@ public class UserConverter {
 		return rv;
 	}
 
-	public static UserDto toUserDto(UserVo vo) {
+	public UserDto toUserDto(UserVo vo) {
 		UserDto userDto = new UserDto();
 		userDto.setId(vo.getId());
 		userDto.setPassword(vo.getPassword());
@@ -48,10 +63,15 @@ public class UserConverter {
 			userDto.setGender(vo.getGender().name());
 		}
 		userDto.setImage(vo.getImage());
+
+		userDto.setFirstname(vo.getFirstname());
+		userDto.setLastname(vo.getLastname());
+		userDto.setEmail(vo.getEmail());
+		userDto.setPhone(vo.getPhone());
 		return userDto;
 	}
 
-	public static List<UserDto> toUserDto(List<UserVo> vos) {
+	public List<UserDto> toUserDto(List<UserVo> vos) {
 		List<UserDto> rv = new ArrayList<>();
 		for (UserVo vo : vos) {
 			rv.add(toUserDto(vo));

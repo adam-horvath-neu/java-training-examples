@@ -1,15 +1,6 @@
 package hu.neuron.service.test;
 
-import static org.junit.Assert.*;
-
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
-
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.postgresql.ds.PGSimpleDataSource;
 
 import hu.neuron.service.UserService;
 import hu.neuron.service.exception.ServiceException;

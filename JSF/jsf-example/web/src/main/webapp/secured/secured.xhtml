@@ -11,9 +11,9 @@
 	<ui:define name="content">
 		<p:panel header="security">
 			<h:panelGrid columns="1">
-				<h:outputLabel rendered="#{request.isUserInRole('admin')}"> ADMIN </h:outputLabel>
-				<h:outputLabel rendered="#{request.isUserInRole('manager')}"> MANAGER </h:outputLabel>
-				<h:outputLabel rendered="#{request.isUserInRole('user')}"> USER </h:outputLabel>
+				<h:outputLabel rendered="#{userSessionBean.hasRole('admin')}"> ADMIN </h:outputLabel>
+				<h:outputLabel rendered="#{userSessionBean.hasRole('manager')}"> MANAGER </h:outputLabel>
+				<h:outputLabel rendered="#{userSessionBean.hasRole('user')}"> USER </h:outputLabel>
 			</h:panelGrid>
 
 

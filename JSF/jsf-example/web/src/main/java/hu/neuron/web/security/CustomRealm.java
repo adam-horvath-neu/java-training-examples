@@ -3,10 +3,11 @@ package hu.neuron.web.security;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.catalina.realm.GenericPrincipal;
 import org.apache.catalina.realm.RealmBase;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.catalina.realm.GenericPrincipal;
 
 public class CustomRealm extends RealmBase {
 

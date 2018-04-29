@@ -33,7 +33,7 @@ public class UserDaoImpl implements UserDao {
 		try {
 			connection = DatasourceUtil.getDatasource().getConnection();
 
-			String sql = "INSERT INTO T_USER (username, password,gender,image) VALUES ( ?, ?,?,?)";
+			String sql = "INSERT INTO USER_TABLE ( username, password, gender, image, firstname, lastname, email, phone) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)";
 
 			statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
@@ -41,6 +41,10 @@ public class UserDaoImpl implements UserDao {
 			statement.setString(2, t.getPassword());
 			statement.setString(3, t.getGender());
 			statement.setBytes(4, t.getImage());
+			statement.setString(5, t.getFirstname());
+			statement.setString(6, t.getLastname());
+			statement.setString(7, t.getEmail());
+			statement.setString(8, t.getPhone());
 
 			statement.executeUpdate();
 
@@ -74,14 +78,72 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public void delete(Long id) {
-		// TODO Auto-generated method stub
+		Connection connection = null;
+		PreparedStatement statement = null;
+		try {
+			connection = DatasourceUtil.getDatasource().getConnection();
+
+			String sql = "DELETE FROM USER_TABLE WHERE id=?";
+
+			statement = connection.prepareStatement(sql);
+
+			statement.setLong(1, id);
+			statement.executeUpdate();
+
+		} catch (SQLException e) {
+			logger.error(e.getMessage(), e);
+		} finally {
+			try {
+				statement.close();
+			} catch (SQLException e) {
+				logger.error(e.getMessage(), e);
+			}
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				logger.error(e.getMessage(), e);
+			}
+		}
 
 	}
 
 	@Override
-	public UserDto upadte(UserDto t) {
-		// TODO Auto-generated method stub
-		return null;
+	public void upadte(UserDto t) {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		try {
+			connection = DatasourceUtil.getDatasource().getConnection();
+
+			String sql = "UPDATE USER_TABLE SET  username=?, password=?, gender=?, image=?, firstname=?, lastname=?,  email=?, phone=? WHERE (id = ?)";
+
+			statement = connection.prepareStatement(sql);
+
+			statement.setString(1, t.getUsername());
+			statement.setString(2, t.getPassword());
+			statement.setString(3, t.getGender());
+			statement.setBytes(4, t.getImage());
+			statement.setString(5, t.getFirstname());
+			statement.setString(6, t.getLastname());
+			statement.setString(7, t.getEmail());
+			statement.setString(8, t.getPhone());
+			statement.setLong(9, t.getId());
+
+			statement.executeUpdate();
+
+		} catch (SQLException e) {
+			logger.error(e.getMessage(), e);
+		} finally {
+			try {
+				statement.close();
+			} catch (SQLException e) {
+				logger.error(e.getMessage(), e);
+			}
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				logger.error(e.getMessage(), e);
+			}
+		}
 	}
 
 	@Override
@@ -93,7 +155,7 @@ public class UserDaoImpl implements UserDao {
 		try {
 			connection = DatasourceUtil.getDatasource().getConnection();
 
-			String sql = "select * from T_USER where id = ?";
+			String sql = "select * from USER_TABLE where id = ?";
 			statement = connection.prepareStatement(sql);
 			statement.setLong(1, id);
 			resultSet = statement.executeQuery();
@@ -134,7 +196,7 @@ public class UserDaoImpl implements UserDao {
 		Connection connection = null;
 		try {
 			connection = DatasourceUtil.getDatasource().getConnection();
-			String sql = "select * from T_USER";
+			String sql = "select * from USER_TABLE";
 			statement = connection.prepareStatement(sql);
 			resultSet = statement.executeQuery();
 
@@ -175,7 +237,7 @@ public class UserDaoImpl implements UserDao {
 		try {
 			connection = DatasourceUtil.getDatasource().getConnection();
 
-			String sql = "select * from T_USER where username = ?";
+			String sql = "select * from USER_TABLE where username = ?";
 			statement = connection.prepareStatement(sql);
 			statement.setString(1, name);
 			resultSet = statement.executeQuery();
@@ -213,7 +275,11 @@ public class UserDaoImpl implements UserDao {
 		String password = resultSet.getString("password");
 		String gender = resultSet.getString("gender");
 		byte[] image = resultSet.getBytes("image");
-		UserDto dto = new UserDto(id, username, password, gender, image);
+		String firstname = resultSet.getString("firstname");
+		String lastname = resultSet.getString("lastname");
+		String email = resultSet.getString("email");
+		String phone = resultSet.getString("phone");
+		UserDto dto = new UserDto(id, username, password, gender, firstname, lastname, email, phone, image);
 		return dto;
 	}
 

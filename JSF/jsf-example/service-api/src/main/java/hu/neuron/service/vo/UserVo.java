@@ -9,22 +9,63 @@ public class UserVo implements Serializable {
 	private Long id;
 	private String username;
 	private String password;
-	private List<RoleVo> roles;
 	private Gender gender;
-
+	private String firstname;
+	private String lastname;
+	private String email;
+	private String phone;
 	private byte[] image;
+
+	private List<RoleVo> roles;
 
 	public UserVo() {
 	}
 
-	public UserVo(Long id, String username, String password, List<RoleVo> roles, Gender gender, byte[] image) {
+	public UserVo(Long id, String username, String password, Gender gender, String firstname, String lastname,
+			String email, String phone, byte[] image, List<RoleVo> roles) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
-		this.roles = roles;
 		this.gender = gender;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.email = email;
+		this.phone = phone;
 		this.image = image;
+		this.roles = roles;
+	}
+
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	public Long getId() {

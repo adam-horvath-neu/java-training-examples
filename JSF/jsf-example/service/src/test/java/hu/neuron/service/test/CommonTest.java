@@ -6,7 +6,6 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.postgresql.ds.PGSimpleDataSource;
 
 public class CommonTest {
