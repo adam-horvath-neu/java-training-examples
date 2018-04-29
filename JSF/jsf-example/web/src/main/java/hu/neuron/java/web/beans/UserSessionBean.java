@@ -22,7 +22,7 @@ public class UserSessionBean implements Serializable {
 	}
 
 	public Boolean hasRole(String role) {
-		return user.getRoles().contains(role);
+		return user.getRoles().stream().anyMatch(x -> x.getName().equals(role));
 	}
 
 	public UserVo getUser() {
