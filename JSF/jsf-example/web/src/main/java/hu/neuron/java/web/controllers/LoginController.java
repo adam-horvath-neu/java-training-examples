@@ -23,7 +23,7 @@ import hu.neuron.service.vo.UserVo;
 @RequestScoped
 @Named("loginController")
 public class LoginController implements Serializable {
-	
+
 	private static final long serialVersionUID = -508228734660295270L;
 
 	private static final String USER = "USER";
@@ -31,6 +31,7 @@ public class LoginController implements Serializable {
 	private static final Logger logger = LogManager.getLogger(ApplicationBean.class);
 
 	private String userName = null;
+
 	private String password = null;
 
 	@Inject

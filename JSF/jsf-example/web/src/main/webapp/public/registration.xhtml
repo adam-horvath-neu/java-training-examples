@@ -1,55 +1,112 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:c="http://java.sun.com/jsp/jstl/core"
-                xmlns:p="http://primefaces.org/ui"
-                template="/templates/masterLayout.xhtml">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/masterLayout.xhtml">
 
-    <ui:define name="pageTitle">#{out.signup_title}</ui:define>
-    <ui:define name="header"> </ui:define>
+	<ui:define name="pageTitle">#{out.signup}</ui:define>
+	<ui:define name="header">
+	</ui:define>
 
-    <ui:define name="head-extra">
-        <!-- custom css -->
-    </ui:define>
+	<ui:define name="head-extra">
+		<!-- custom css -->
+	</ui:define>
 
-    <ui:define name="content">
-        <div>
+	<ui:define name="content">
+		<div>
 
-            <h:form id="userFormId" prependId="false">
-                <p:messages id="messages" showDetail="true" 
-                            closable="true" />
-                <h:panelGrid columns="2" cellpadding="5">
+			<h:form id="userFormId" prependId="false"
+				enctype="multipart/form-data">
+
+				<p:wizard flowListener="#{registrationController.onFlowProcess}">
+
+					<p:tab id="userNamePassword"
+						title="#{out['registration.userNamePassword.title']}">
+						<p:panel header="#{out['registration.userNamePassword.header']}">
+							<h:panelGrid columns="2" cellpadding="5">
+								<h:outputLabel id="outTxtUserNameId" value="#{out.username}"
+									name="outTxtUserNameNm"></h:outputLabel>
+								<p:inputText id="userName" required="true"
+									value="#{registrationController.userVo.username}"
+									requiredMessage="Please enter username" />
+
+								<h:outputLabel for="pwd1" value="#{out.password}: " />
+								<p:password id="pwd1"
+									value="#{registrationController.userVo.password}" match="pwd2"
+									label="Password 1" required="true">
+
+									<f:validateLength maximum="254" minimum="6" />
+
+								</p:password>
+
+								<h:outputLabel for="pwd2" value="#{out.password2}: " />
+								<p:password id="pwd2"
+									value="#{registrationController.password2}" label="Password 2"
+									required="true">
+									<f:validateLength maximum="254" minimum="6" />
+								</p:password>
+							</h:panelGrid>
+						</p:panel>
+					</p:tab>
+					<p:tab id="personal" title="#{out['registration.personal.title']}">
+						<p:panel header="#{out['registration.personal.header']}">
+							<h:panelGrid columns="2" cellpadding="5">
+								<h:outputLabel value="#{out.firstname}"></h:outputLabel>
+								<p:inputText id="firstname" required="true"
+									value="#{registrationController.userVo.firstname}"
+									requiredMessage="#{out.req_firstname}">
+									<f:validateLength maximum="254" />
+								</p:inputText>
+
+								<h:outputLabel value="#{out.lastname}"></h:outputLabel>
+								<p:inputText id="lastname" required="true"
+									value="#{registrationController.userVo.lastname}"
+									requiredMessage="#{out.req_lastname}">
+									<f:validateLength maximum="254" />
+								</p:inputText>
+								<h:outputLabel value="#{out.email}"></h:outputLabel>
+								<p:inputText id="email" required="true"
+									value="#{registrationController.userVo.email}"
+									requiredMessage="#{out.req_email}">
+									<f:validateRegex
+										pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+								</p:inputText>
+
+								<h:outputLabel value="#{out.phone}"></h:outputLabel>
+								<p:inputMask id="phone" required="true" mask="999-999-9999"
+									value="#{registrationController.userVo.phone}"
+									requiredMessage="#{out.req_phone}" />
 
 
-                    <h:panelGrid columns="2" id="matchGrid" cellpadding="5">
-                        <h:outputLabel id="outTxtUserNameId" value="#{out.username}"
-                                       name="outTxtUserNameNm"></h:outputLabel>
-                        <p:inputText id="userName" required="true"
-                                     value="#{registrationController.userName}"
-                                     requiredMessage="Please enter username" />
+								<h:outputLabel value="#{out.gender}"></h:outputLabel>
+								<p:selectOneRadio id="console"
+									value="#{registrationController.gender}">
+									<f:selectItems value="#{registrationController.genders}"
+										var="gender" itemValue="#{gender}"
+										itemLabel="#{out['gender_'.concat(gender)]}" />
 
-                        <h:outputLabel for="pwd1" value="#{out.password}: " />
-                        <p:password id="pwd1" value="#{registrationController.password}" 
-                                    match="pwd2" label="Password 1" required="true" />
-
-                        <h:outputLabel for="pwd2" value="#{out.password2}: " />
-                        <p:password id="pwd2" value="#{registrationController.password2}"
-                                    label="Password 2" required="true" />
-
-                    </h:panelGrid>
+								</p:selectOneRadio>
 
 
-                    <div id="loginBtnPanelId">
-                        <p:commandButton id="btnLoginId" value="#{out.signup}"  update="messages"
-                                         action="#{registrationController.addUser()}" styleClass="loginPanelBtn"
-                                         icon="ui-icon-check" />
-                    </div>
+							</h:panelGrid>
 
-                </h:panelGrid>
-            </h:form>
+							<f:facet name="footer">
+								<p:commandButton id="btnLoginId" value="#{out['signup']}"
+									action="#{registrationController.addUser()}"
+									styleClass="loginPanelBtn" icon="ui-icon-check" />
 
-        </div>
+							</f:facet>
+						</p:panel>
+					</p:tab>
 
-    </ui:define>
+
+				</p:wizard>
+
+			</h:form>
+
+		</div>
+
+	</ui:define>
 </ui:composition>

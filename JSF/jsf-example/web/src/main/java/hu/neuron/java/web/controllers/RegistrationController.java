@@ -1,14 +1,24 @@
 package hu.neuron.java.web.controllers;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.primefaces.event.FlowEvent;
+import org.primefaces.model.UploadedFile;
+
 import hu.neuron.service.UserService;
+import hu.neuron.service.vo.Gender;
 import hu.neuron.service.vo.UserVo;
 
 @ViewScoped
@@ -17,11 +27,25 @@ public class RegistrationController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private String userName = "";
+	private static final Logger logger = LogManager.getLogger(RegistrationController.class);
 
-	private String password = "";
+	private UserVo userVo;
 
 	private String password2 = "";
+
+	private List<String> genders;
+
+	private String gender = "";
+
+	@PostConstruct
+	public void init() {
+		userVo = new UserVo();
+		genders = new ArrayList<>();
+		Gender[] gendersA = Gender.values();
+		for (Gender gender : gendersA) {
+			genders.add(gender.name());
+		}
+	}
 
 	@Inject
 	private UserService userService;
@@ -29,28 +53,25 @@ public class RegistrationController implements Serializable {
 	public String addUser() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		try {
-			if (!password.equals(getPassword2())) {
-				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Password not match"));
+			if (!userVo.getPassword().equals(getPassword2())) {
+
+				context.addMessage(null,
+						new FacesMessage(FacesMessage.SEVERITY_ERROR, "global.error", "password_not_match"));
 				return null;
-			} else if (getUserService().findUserByName(userName) != null) {
-				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!",
-						"Sorry we already have a user with this name"));
+			} else if (getUserService().findUserByName(userVo.getUsername()) != null) {
+				addErrorMessage("password_not_match");
 				return null;
 			}
 
-			UserVo UserVo = new UserVo();
-
-			UserVo.setPassword(password);
-			UserVo.setUsername(userName);
-
-			getUserService().registration(UserVo);
+			userVo.setGender(Gender.valueOf(gender));
+			getUserService().registration(userVo);
 
 			context.getExternalContext().getFlash().setKeepMessages(true);
 			context.addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Registration sucessful you can log in now"));
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", e.getMessage()));
 			return "/public/registration.xhtml?faces-redirect=true";
 		}
@@ -58,20 +79,14 @@ public class RegistrationController implements Serializable {
 		return "/public/login.xhtml?faces-redirect=true";
 	}
 
-	public String getUserName() {
-		return userName;
+	public String onFlowProcess(FlowEvent event) {
+		return event.getNewStep();
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
+	private void addErrorMessage(String string) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "global.error",
+				ResourceBundle.getBundle("hu.neuron.java.Messages").getString(string)));
 	}
 
 	public String getPassword2() {
@@ -88,6 +103,30 @@ public class RegistrationController implements Serializable {
 
 	public void setUserService(UserService userService) {
 		this.userService = userService;
+	}
+
+	public UserVo getUserVo() {
+		return userVo;
+	}
+
+	public void setUserVo(UserVo userVo) {
+		this.userVo = userVo;
+	}
+
+	public List<String> getGenders() {
+		return genders;
+	}
+
+	public void setGenders(List<String> genders) {
+		this.genders = genders;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 
 }
