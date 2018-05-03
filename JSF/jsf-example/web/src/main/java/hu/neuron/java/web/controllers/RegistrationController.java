@@ -1,7 +1,9 @@
 package hu.neuron.java.web.controllers;
 
+import java.awt.geom.Area;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -33,18 +35,10 @@ public class RegistrationController implements Serializable {
 
 	private String password2 = "";
 
-	private List<String> genders;
-
-	private String gender = "";
-
 	@PostConstruct
 	public void init() {
 		userVo = new UserVo();
-		genders = new ArrayList<>();
-		Gender[] gendersA = Gender.values();
-		for (Gender gender : gendersA) {
-			genders.add(gender.name());
-		}
+
 	}
 
 	@Inject
@@ -63,7 +57,6 @@ public class RegistrationController implements Serializable {
 				return null;
 			}
 
-			userVo.setGender(Gender.valueOf(gender));
 			getUserService().registration(userVo);
 
 			context.getExternalContext().getFlash().setKeepMessages(true);
@@ -113,20 +106,8 @@ public class RegistrationController implements Serializable {
 		this.userVo = userVo;
 	}
 
-	public List<String> getGenders() {
-		return genders;
-	}
-
-	public void setGenders(List<String> genders) {
-		this.genders = genders;
-	}
-
-	public String getGender() {
-		return gender;
-	}
-
-	public void setGender(String gender) {
-		this.gender = gender;
+	public List<Gender> getGenders() {
+		return Arrays.asList(Gender.values());
 	}
 
 }

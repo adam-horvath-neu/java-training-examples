@@ -1,6 +1,7 @@
 package hu.neuron.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -11,6 +12,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import hu.neuron.core.dao.RoleDao;
 import hu.neuron.core.dao.UserDao;
 import hu.neuron.core.dto.RoleDto;
+import hu.neuron.core.dto.UserDto;
 import hu.neuron.service.UserService;
 import hu.neuron.service.converter.UserConverter;
 import hu.neuron.service.exception.ServiceException;
@@ -63,6 +65,13 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<UserVo> getUserList() throws ServiceException {
 		return userConverter.toUserVo(userDao.findAll());
+	}
+
+	@Override
+	public List<UserVo> getUserList(int first, int pageSize, String sortField, String name,
+			Map<String, Object> filters) {
+		List<UserDto> userDtos = userDao.getUserList(first, pageSize, sortField, name, filters);
+		return userConverter.toUserVo(userDtos);
 	}
 
 }

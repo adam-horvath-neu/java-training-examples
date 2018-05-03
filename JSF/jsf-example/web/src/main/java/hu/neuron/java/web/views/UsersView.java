@@ -2,8 +2,10 @@ package hu.neuron.java.web.views;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Locale;
 
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -26,15 +28,43 @@ public class UsersView implements Serializable {
 	@Inject
 	private UserService userService;
 
-	private List<UserVo> users;
+//	private List<UserVo> users;
+	
+	private LazyUserDataModel lazyUserDataModel;
 
 	@PostConstruct
 	public void init() {
-		try {
-			users = userService.getUserList();
-		} catch (ServiceException e) {
-			logger.error(e.getMessage(), e);
+//		try {
+//			users = userService.getUserList();
+			setLazyUserDataModel(new LazyUserDataModel(userService));
+//		} catch (ServiceException e) {
+//			logger.error(e.getMessage(), e);
+//		}
+	}
+
+	public String getLocalName(UserVo userVo) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		Locale locale = context.getViewRoot().getLocale();
+		String languange = locale.getLanguage();
+
+		if ("hu".equals(languange)) {
+			return userVo.getLastname() + " " + userVo.getFirstname();
+		} else {
+			return userVo.getFirstname() + " " + userVo.getLastname();
 		}
+	}
+
+	public boolean filterByLocalName(Object value, Object filter, Locale locale) {
+		String filterText = (filter == null) ? null : filter.toString().trim();
+		if (filterText == null || filterText.equals("")) {
+			return true;
+		}
+
+		if (value == null) {
+			return false;
+		}
+		String localname = (String) value;
+		return localname.toUpperCase().startsWith(filterText.toUpperCase());
 	}
 
 	public UserService getUserService() {
@@ -45,12 +75,20 @@ public class UsersView implements Serializable {
 		this.userService = userService;
 	}
 
-	public List<UserVo> getUsers() {
-		return users;
+	public LazyUserDataModel getLazyUserDataModel() {
+		return lazyUserDataModel;
 	}
 
-	public void setUsers(List<UserVo> users) {
-		this.users = users;
+	public void setLazyUserDataModel(LazyUserDataModel lazyUserDataModel) {
+		this.lazyUserDataModel = lazyUserDataModel;
 	}
+
+//	public List<UserVo> getUsers() {
+//		return users;
+//	}
+//
+//	public void setUsers(List<UserVo> users) {
+//		this.users = users;
+//	}
 
 }

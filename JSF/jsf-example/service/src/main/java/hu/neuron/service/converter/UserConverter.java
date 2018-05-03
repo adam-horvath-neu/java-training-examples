@@ -43,6 +43,7 @@ public class UserConverter {
 
 		List<RoleDto> roles = roleDao.findRolesByUser(dto.getId());
 		userVo.setRoles(roleConverter.toRoleVo(roles));
+		
 		return userVo;
 	}
 

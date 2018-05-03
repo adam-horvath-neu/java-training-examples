@@ -30,7 +30,9 @@
 									name="outTxtUserNameNm"></h:outputLabel>
 								<p:inputText id="userName" required="true"
 									value="#{registrationController.userVo.username}"
-									requiredMessage="Please enter username" />
+									requiredMessage="Please enter username" validator="#{userNameAlreadyExistValidator.validate}" >
+									
+									</p:inputText>
 
 								<h:outputLabel for="pwd1" value="#{out.password}: " />
 								<p:password id="pwd1"
@@ -58,6 +60,7 @@
 									value="#{registrationController.userVo.firstname}"
 									requiredMessage="#{out.req_firstname}">
 									<f:validateLength maximum="254" />
+									
 								</p:inputText>
 
 								<h:outputLabel value="#{out.lastname}"></h:outputLabel>
@@ -82,10 +85,10 @@
 
 								<h:outputLabel value="#{out.gender}"></h:outputLabel>
 								<p:selectOneRadio id="console"
-									value="#{registrationController.gender}">
+									value="#{registrationController.userVo.gender}">
 									<f:selectItems value="#{registrationController.genders}"
 										var="gender" itemValue="#{gender}"
-										itemLabel="#{out['gender_'.concat(gender)]}" />
+										itemLabel="#{out['gender_'.concat(gender.name())]}" />
 
 								</p:selectOneRadio>
 

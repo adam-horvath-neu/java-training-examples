@@ -38,7 +38,7 @@ public class DataGenerator extends CommonTest {
 		try {
 
 			JsonReader jsonReader = new JsonReader();
-			JSONObject json = jsonReader.readJsonFromUrl("https://randomuser.me/api/0.8/?results=20");
+			JSONObject json = jsonReader.readJsonFromUrl("https://randomuser.me/api/0.8/?results=2000");
 			JSONArray array = json.getJSONArray("results");
 			for (int i = 0; i < array.length(); i++) {
 				JSONObject jsonObject = array.getJSONObject(i);

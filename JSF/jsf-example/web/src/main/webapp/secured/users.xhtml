@@ -24,11 +24,13 @@
 					<p:growl id="msgs" showDetail="true" />
 					<p:dataTable id="userTable" widgetVar="userTable" var="currentUser"
 						paginatorPosition="bottom" styleClass="table table-striped"
-						value="#{usersView.users}"
+						value="#{usersView.lazyUserDataModel}" lazy="true"
 						paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
 						rowsPerPageTemplate="5,10,15" paginator="true" rows="5"
 						emptyMessage="#{out.empty_message}">
-
+						<p:column styleClass="hidden-lg">
+							<p:rowToggler />
+						</p:column>
 						<p:column style="width:120px;">
 
 							<p:graphicImage value="#{userImages.image}"
@@ -39,11 +41,37 @@
 						</p:column>
 
 
-						<p:column headerText="Name" sortBy="#{currentUser.username}"
+						<p:column headerText="Username"  sortBy="#{currentUser.username}"
 							filterBy="#{currentUser.username}">
 							<h:outputText value="#{currentUser.username} " />
 						</p:column>
 
+						<p:column headerText="Name"
+							sortBy="#{usersView.getLocalName(currentUser)}"
+							filterFunction="#{usersView.filterByLocalName}"
+							filterBy="#{usersView.getLocalName(currentUser)}">
+							<h:outputText value="#{usersView.getLocalName(currentUser)} " />
+						</p:column>
+
+
+						<p:column headerText="Email" sortBy="#{currentUser.email}"
+							filterBy="#{currentUser.email}" width="25%">
+							<h:outputText value="#{currentUser.email} " />
+						</p:column>
+
+						<p:column headerText="Phone" sortBy="#{currentUser.phone}"
+							filterBy="#{currentUser.phone}">
+							<h:outputText value="#{currentUser.phone} " />
+						</p:column>
+
+						<p:column headerText="Roles" styleClass="hidden-md">
+
+							<p:dataList value="#{currentUser.roles}" var="role"
+								type="unordered">
+								<h:outputText value="#{role.name} " />
+							</p:dataList>
+
+						</p:column>
 
 						<p:column headerText="Gender"
 							sortBy="#{currentUser.gender.name()}"
@@ -60,6 +88,18 @@
 							<h:outputText value="#{currentUser.gender}" />
 						</p:column>
 
+
+						<p:rowExpansion>
+							<p:panelGrid columns="2" columnClasses="label,value"
+								style="width:300px">
+
+								<p:dataList value="#{currentUser.roles}" var="role"
+									type="unordered">
+									<h:outputText value="#{role.name} " />
+								</p:dataList>
+
+							</p:panelGrid>
+						</p:rowExpansion>
 					</p:dataTable>
 				</h:form>
 

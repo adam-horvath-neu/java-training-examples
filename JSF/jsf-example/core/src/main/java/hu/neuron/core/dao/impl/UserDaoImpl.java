@@ -7,10 +7,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -281,6 +283,75 @@ public class UserDaoImpl implements UserDao {
 		String phone = resultSet.getString("phone");
 		UserDto dto = new UserDto(id, username, password, gender, firstname, lastname, email, phone, image);
 		return dto;
+	}
+
+	@Override
+	public List<UserDto> getUserList(int first, int pageSize, String sortField, String order,
+			Map<String, Object> filters) {
+
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		List<UserDto> rv = new ArrayList<UserDto>();
+		Connection connection = null;
+		try {
+			connection = DatasourceUtil.getDatasource().getConnection();
+			StringBuilder sql = new StringBuilder("select * from USER_TABLE U ");
+
+			String username = (String) filters.get("username");
+			String email = (String) filters.get("email");
+
+			if (!filters.isEmpty()) {
+				sql.append(" where ");
+			}
+
+			if (StringUtils.isNoneBlank(username)) {
+				sql.append(" U.username LIKE ? ");
+			}
+
+			if (StringUtils.isNoneBlank(email)) {
+				sql.append(" U.email LIKE ? ");
+			}
+
+			statement = connection.prepareStatement(sql.toString());
+
+			if (StringUtils.isNoneBlank(username)) {
+				int index = new ArrayList<>(filters.keySet()).indexOf("username");
+				statement.setString(index+1, username+"%");
+			}
+
+			if (StringUtils.isNoneBlank(email)) {
+				int index = new ArrayList<>(filters.keySet()).indexOf("email");
+				statement.setString(index+1, email+"%");
+			}
+
+			resultSet = statement.executeQuery();
+
+			while (resultSet.next()) {
+				UserDto dto = readUserDto(resultSet);
+				rv.add(dto);
+			}
+
+		} catch (SQLException e) {
+			logger.error(e.getMessage(), e);
+		} finally {
+			try {
+				resultSet.close();
+			} catch (SQLException e) {
+				logger.error(e.getMessage(), e);
+			}
+			try {
+				statement.close();
+			} catch (SQLException e) {
+				logger.error(e.getMessage(), e);
+			}
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				logger.error(e.getMessage(), e);
+			}
+
+		}
+		return rv;
 	}
 
 }
