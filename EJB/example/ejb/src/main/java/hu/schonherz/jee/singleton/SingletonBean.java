@@ -23,7 +23,7 @@ import hu.schonherz.jee.timer.SimpleTimer;
 @Remote(SingletonRemote.class)
 @Interceptors(SimpleInterceptor.class)
 public class SingletonBean implements SingletonLocal, SingletonRemote {
-	private static Log logger = LogFactory.getLog(SimpleTimer.class);
+	private static Log logger = LogFactory.getLog(SingletonBean.class);
 
 	@Override
 	public void hello() {

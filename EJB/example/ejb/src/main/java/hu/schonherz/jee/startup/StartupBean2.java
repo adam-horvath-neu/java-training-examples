@@ -13,8 +13,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import hu.schonherz.jee.StatefulLocal;
-import hu.schonherz.jee.StatelessLocal;
-import hu.schonherz.jee.timer.SimpleTimer;
 
 @Startup
 @Singleton

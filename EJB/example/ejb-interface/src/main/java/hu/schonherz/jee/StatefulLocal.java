@@ -9,4 +9,6 @@ public interface StatefulLocal {
 
 	public Future<Date> asynchronousPrintTime();
 
+	public Double add(Double a);
+
 }

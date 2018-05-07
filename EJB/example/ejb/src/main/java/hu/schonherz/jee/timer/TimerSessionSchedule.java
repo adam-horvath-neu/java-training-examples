@@ -1,19 +1,24 @@
 package hu.schonherz.jee.timer;
 
+import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
 import javax.ejb.LocalBean;
 import javax.ejb.ScheduleExpression;
-import javax.ejb.Stateless;
+import javax.ejb.Singleton;
 import javax.ejb.Timeout;
 import javax.ejb.Timer;
 import javax.ejb.TimerConfig;
 import javax.ejb.TimerService;
+import javax.interceptor.Interceptors;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-@Stateless
+import hu.schonherz.jee.interceptor.SimpleInterceptor;
+
+@Singleton
 @LocalBean
+@Interceptors(SimpleInterceptor.class)
 public class TimerSessionSchedule {
 	private static final String MY_TIMER = "My CalendarTimer";
 
@@ -37,7 +42,8 @@ public class TimerSessionSchedule {
 		logger.info("Timeout occurred");
 	}
 
-	public void stopTimer(long intervalDuration) {
+	@PreDestroy
+	public void stopTimer() {
 		for (Object obj : timerService.getTimers()) {
 			Timer t = (Timer) obj;
 			if (t.getInfo().equals(MY_TIMER)) {

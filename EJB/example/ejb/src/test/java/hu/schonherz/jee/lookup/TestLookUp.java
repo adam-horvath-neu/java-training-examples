@@ -22,12 +22,12 @@ public class TestLookUp {
 //		prop.put(Context.SECURITY_CREDENTIALS, "password");
 
 //		prop.put("jboss.naming.client.ejb.context", true);
-
+		Context context=null;
 		try {
-			Context context = new InitialContext(prop);
-
+			context	 = new InitialContext(prop);
+		
 			StatelessRemote remote = (StatelessRemote) context
-					.lookup("ejb:ear/ejb-0.0.1-SNAPSHOT/StatelessBean!hu.schonherz.jee.StatelessRemote");
+					.lookup("ejb:ear-bus/ejb/StatelessBean!hu.schonherz.jee.StatelessRemote");
 
 			ExecutorService executor = Executors.newFixedThreadPool(10);
 
@@ -45,6 +45,12 @@ public class TestLookUp {
 			executor.shutdown();
 		} catch (NamingException e) {
 			e.printStackTrace();
+		}finally {
+			try {
+				context.close();
+			} catch (NamingException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

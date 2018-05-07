@@ -9,7 +9,6 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import hu.schonherz.jee.StatefulRemote;
-import hu.schonherz.jee.StatelessRemote;
 
 public class TestLookUpStateful {
 
@@ -23,12 +22,12 @@ public class TestLookUpStateful {
 		// prop.put(Context.SECURITY_CREDENTIALS, "password");
 
 		// prop.put("jboss.naming.client.ejb.context", true);
-
+		Context context = null;
 		try {
-			Context context = new InitialContext(prop);
+			context = new InitialContext(prop);
 
 			StatefulRemote remote = (StatefulRemote) context
-					.lookup("ejb:ear/ejb-0.0.1-SNAPSHOT/StatefulBean!hu.schonherz.jee.StatefulRemote?stateful");
+					.lookup("ejb:ear-bus/ejb/StatefulBean!hu.schonherz.jee.StatefulRemote?stateful");
 
 			ExecutorService executor = Executors.newFixedThreadPool(10);
 
@@ -37,8 +36,8 @@ public class TestLookUpStateful {
 				executor.submit(new Runnable() {
 					@Override
 					public void run() {
-						remote.hello();
-
+						Double rv = remote.add(10.0);
+						System.out.println(rv);
 					}
 				});
 			}
@@ -46,6 +45,12 @@ public class TestLookUpStateful {
 			executor.shutdown();
 		} catch (NamingException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				context.close();
+			} catch (NamingException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

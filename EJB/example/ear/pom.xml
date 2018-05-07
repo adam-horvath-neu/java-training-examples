@@ -11,18 +11,28 @@
 	<packaging>ear</packaging>
 
 	<dependencies>
+
 		<dependency>
 			<groupId>hu.schonherz.jee</groupId>
 			<artifactId>ejb</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<type>ejb</type>
 		</dependency>
+
 		<dependency>
 			<groupId>hu.schonherz.jee</groupId>
 			<artifactId>web</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<type>war</type>
 		</dependency>
+
+		<dependency>
+			<groupId>hu.schonherz.jee</groupId>
+			<artifactId>web</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<type>pom</type>
+		</dependency>
+
 	</dependencies>
 	<build>
 
@@ -31,25 +41,27 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-ear-plugin</artifactId>
-				<version>2.10.1</version>
+				<version>3.0.0</version>
 				<configuration>
-					<version>7</version>
-					<defaultLibBundleDir>lib</defaultLibBundleDir>
+					<defaultLibBundleDir>APP-INF/lib</defaultLibBundleDir>
 					<applicationName>ear</applicationName>
+					<skinnyWars>true</skinnyWars>
+					<version>7</version>
 					<modules>
 						<ejbModule>
 							<groupId>hu.schonherz.jee</groupId>
 							<artifactId>ejb</artifactId>
+							<bundleFileName>ejb.jar</bundleFileName>
 						</ejbModule>
 						<webModule>
 							<groupId>hu.schonherz.jee</groupId>
 							<artifactId>web</artifactId>
 							<contextRoot>webApp</contextRoot>
+							<bundleFileName>web.war</bundleFileName>
 						</webModule>
 					</modules>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
-
 </project>

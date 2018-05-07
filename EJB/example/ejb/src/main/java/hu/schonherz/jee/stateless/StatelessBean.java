@@ -8,16 +8,21 @@ import javax.ejb.Asynchronous;
 import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
+import javax.interceptor.Interceptors;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import hu.schonherz.jee.NoSerializabledVO;
+import hu.schonherz.jee.SerializabledVO;
 import hu.schonherz.jee.StatelessLocal;
 import hu.schonherz.jee.StatelessRemote;
+import hu.schonherz.jee.interceptor.SimpleInterceptor;
 
 @Stateless
 @Local(StatelessLocal.class)
 @Remote(StatelessRemote.class)
+@Interceptors(SimpleInterceptor.class)
 public class StatelessBean implements StatelessLocal, StatelessRemote {
 	private static Log logger = LogFactory.getLog(StatelessBean.class);
 
@@ -36,6 +41,26 @@ public class StatelessBean implements StatelessLocal, StatelessRemote {
 			e.printStackTrace();
 		}
 		return new AsyncResult<Date>(new Date());
+	}
+
+	@Override
+	public Double add(Double a, Double b) {
+
+		return a + b;
+	}
+
+	@Override
+	public SerializabledVO upperCase(SerializabledVO serializabledVO) {
+		SerializabledVO rv = new SerializabledVO();
+		rv.setText(serializabledVO.getText().toUpperCase());
+		return rv;
+	}
+
+	@Override
+	public NoSerializabledVO upperCase(NoSerializabledVO serializabledVO) {
+		NoSerializabledVO rv = new NoSerializabledVO();
+		rv.setText(serializabledVO.getText().toUpperCase());
+		return rv;
 	}
 
 }

@@ -9,4 +9,9 @@ public interface StatelessLocal {
 
 	public Future<Date> asynchronousPrintTime();
 
+	public Double add(Double a, Double b);
+
+	public SerializabledVO upperCase(SerializabledVO serializabledVO);
+
+	public NoSerializabledVO upperCase(NoSerializabledVO serializabledVO);
 }

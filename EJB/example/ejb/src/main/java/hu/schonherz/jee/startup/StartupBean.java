@@ -1,10 +1,7 @@
 package hu.schonherz.jee.startup;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -15,7 +12,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import hu.schonherz.jee.StatelessLocal;
-import hu.schonherz.jee.timer.SimpleTimer;
 
 @Startup
 @Singleton

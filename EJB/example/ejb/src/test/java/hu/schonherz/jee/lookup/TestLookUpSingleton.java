@@ -9,6 +9,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import hu.schonherz.jee.SingletonRemote;
+import hu.schonherz.jee.StatefulRemote;
+import hu.schonherz.jee.StatelessRemote;
 
 public class TestLookUpSingleton {
 
@@ -22,12 +24,12 @@ public class TestLookUpSingleton {
 		// prop.put(Context.SECURITY_CREDENTIALS, "password");
 
 		// prop.put("jboss.naming.client.ejb.context", true);
-
+		Context context = null;
 		try {
-			Context context = new InitialContext(prop);
+			context = new InitialContext(prop);
 
 			SingletonRemote remote = (SingletonRemote) context
-					.lookup("ejb:ear/ejb-0.0.1-SNAPSHOT/SingletonBean!hu.schonherz.jee.SingletonRemote");
+					.lookup("ejb:ear-bus/ejb/SingletonBean!hu.schonherz.jee.SingletonRemote");
 
 			ExecutorService executor = Executors.newFixedThreadPool(10);
 
@@ -45,6 +47,12 @@ public class TestLookUpSingleton {
 			executor.shutdown();
 		} catch (NamingException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				context.close();
+			} catch (NamingException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

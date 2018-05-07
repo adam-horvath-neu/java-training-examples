@@ -8,12 +8,16 @@ import javax.ejb.Timeout;
 import javax.ejb.Timer;
 import javax.ejb.TimerConfig;
 import javax.ejb.TimerService;
+import javax.interceptor.Interceptors;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import hu.schonherz.jee.interceptor.SimpleInterceptor;
+
 @Stateless
 @LocalBean
+@Interceptors(SimpleInterceptor.class)
 public class TimerSessionBean {
 	private static final String MY_TIMER = "My Timer";
 
@@ -27,11 +31,12 @@ public class TimerSessionBean {
 		// Timer timer = timerService.createTimer(intervalDuration, MY_TIMER);
 
 		TimerConfig timerConfig = new TimerConfig(MY_TIMER, true);
-		Timer timer = timerService.createIntervalTimer(0, intervalDuration, timerConfig);
+		timerService.createIntervalTimer(0, intervalDuration, timerConfig);
 
 	}
 
 	@Timeout
+	@Interceptors(SimpleInterceptor.class)
 	public void timeout(Timer timer) {
 		logger.info("Timeout occurred");
 		logger.info("NextTimeout : " + timer.getNextTimeout());
