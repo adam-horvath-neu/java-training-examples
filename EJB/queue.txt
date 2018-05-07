@@ -1,0 +1,4 @@
+<jms-queue name="BadWordQueueIn" entries="java:/jms/queue/BadWordQueueIn"/>
+<jms-queue name="BadWordQueueOut" entries="java:/jms/queue/BadWordQueueOut"/>
+<jms-queue name="Queue" entries="java:/jms/queue/Queue"/>
+<jms-queue name="QueueSync" entries="java:/jms/queue/QueueSync"/>
