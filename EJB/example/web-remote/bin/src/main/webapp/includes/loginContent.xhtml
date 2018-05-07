@@ -1,0 +1,38 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags">
+
+	<p:dialog header="Login" widgetVar="loginDialog" showEffect="explode"
+		hideEffect="bounce" height="100">
+		<h:panelGroup>
+			<h:form id="loginFormId" prependId="false">
+				<div>
+					<h:outputText value="Username: " name="outTxtUserNameNm"></h:outputText>
+					<h:inputText id="userNameLogin" required="true"
+						value="#{loginController.userName}"
+						requiredMessage="Please enter username"></h:inputText>
+					<h:outputLabel id="outLblUserNameId" for="userNameLogin"
+						name="outLblUserNameNm"></h:outputLabel>
+				</div>
+				<div>
+					<h:outputText value="Password: " name="outTxtPasswordNm"></h:outputText>
+					<h:inputSecret id="passwordLogin" required="true"
+						value="#{loginController.password}"
+						requiredMessage="Please enter password"></h:inputSecret>
+					<h:outputLabel for="passwordLogin" name="outLblPasswordNm"></h:outputLabel>
+				</div>
+				<p:commandButton value="Login"  onsuccess="PF('loginDialog').hide();" update="loginPopup" actionListener="#{loginController.doLogin}"
+					styleClass="loginPanelBtn" >
+				
+					</p:commandButton>
+
+			</h:form>
+		</h:panelGroup>
+	</p:dialog>
+
+
+</ui:composition>

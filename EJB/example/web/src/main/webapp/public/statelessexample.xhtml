@@ -1,0 +1,101 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/masterLayout.xhtml"
+	xmlns:sec="http://www.springframework.org/security/tags">
+	<ui:define name="pageTitle">#{out.login}</ui:define>
+	<ui:define name="content">
+
+		<p:panelGrid columns="3">
+
+			<h:form>
+				<p:panelGrid columns="1">
+					<f:facet name="header">
+           		 CDI
+        		</f:facet>
+					<p:inputNumber value="#{cDIStatelessBeanExample.a}"></p:inputNumber>
+					<p:inputNumber value="#{cDIStatelessBeanExample.b}"></p:inputNumber>
+					<p:commandButton actionListener="#{cDIStatelessBeanExample.add()}"
+						value="Add" update="@form"></p:commandButton>
+				</p:panelGrid>
+			</h:form>
+			<p:panelGrid columns="1">
+			</p:panelGrid>
+			<p:panelGrid columns="1">
+			</p:panelGrid>
+
+			<h:form>
+				<p:panelGrid columns="1">
+					<f:facet name="header">
+           		Stateles Local
+        		</f:facet>
+					<p:inputNumber value="#{statelessBeanExample.a}"></p:inputNumber>
+					<p:inputNumber value="#{statelessBeanExample.b}"></p:inputNumber>
+					<p:commandButton actionListener="#{statelessBeanExample.add()}"
+						value="Add" update="@form"></p:commandButton>
+				</p:panelGrid>
+			</h:form>
+			<h:form>
+				<p:panelGrid columns="1">
+					<f:facet name="header">
+           		NoSerializabled
+        		</f:facet>
+					<p:inputText value="#{statelessBeanExample.text}"></p:inputText>
+					<p:commandButton
+						actionListener="#{statelessBeanExample.upperCaseNoSerializabled()}"
+						value="CAll" update="@form"></p:commandButton>
+				</p:panelGrid>
+			</h:form>
+
+			<h:form>
+				<p:panelGrid columns="1">
+					<f:facet name="header">
+          			Serializabled
+        			</f:facet>
+					<p:inputText value="#{statelessBeanExample.text}"></p:inputText>
+					<p:commandButton
+						actionListener="#{statelessBeanExample.upperCaseSerializabled()}"
+						value="CAll" update="@form"></p:commandButton>
+				</p:panelGrid>
+			</h:form>
+
+			<h:form>
+				<p:panelGrid columns="1">
+					<f:facet name="header">
+           		Stateles Remote
+        		</f:facet>
+					<p:inputNumber value="#{statelessBeanExample.a}"></p:inputNumber>
+					<p:inputNumber value="#{statelessBeanExample.b}"></p:inputNumber>
+					<p:commandButton
+						actionListener="#{statelessBeanExample.addRemote()}" value="Add"
+						update="@form"></p:commandButton>
+				</p:panelGrid>
+			</h:form>
+			<h:form>
+				<p:panelGrid columns="1">
+					<f:facet name="header">
+           		NoSerializabled
+        		</f:facet>
+					<p:inputText value="#{statelessBeanExample.text}"></p:inputText>
+					<p:commandButton
+						actionListener="#{statelessBeanExample.upperCaseNoSerializabledRemote()}"
+						value="Call" update="@form"></p:commandButton>
+				</p:panelGrid>
+			</h:form>
+
+			<h:form>
+				<p:panelGrid columns="1">
+					<f:facet name="header">
+          			Serializabled
+        			</f:facet>
+					<p:inputText value="#{statelessBeanExample.text}"></p:inputText>
+					<p:commandButton
+						actionListener="#{statelessBeanExample.upperCaseSerializabledRemote()}"
+						value="Call" update="@form"></p:commandButton>
+				</p:panelGrid>
+			</h:form>
+		</p:panelGrid>
+	</ui:define>
+</ui:composition>

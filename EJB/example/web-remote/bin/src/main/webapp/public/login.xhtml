@@ -1,0 +1,58 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/masterLayout.xhtml"
+	xmlns:sec="http://www.springframework.org/security/tags">
+	<ui:define name="head-extra">
+		<!-- custom css -->
+	</ui:define>
+	<ui:define name="pageTitle">#{out.login}</ui:define>
+	<ui:define name="content">
+		<div>
+
+
+			<h:panelGroup layout="block" class="error"
+				rendered="#{param['error'] == 1}">
+				<div class="ui-messages ui-widget">
+					<div class="ui-messages-fatal ui-corner-all">
+
+						<ul>
+							<li><span class="ui-messages-fatal-summary"></span><span
+								class="ui-messages-fatal-detail">#{out.login_fail}</span></li>
+						</ul>
+					</div>
+				</div>
+
+			</h:panelGroup>
+
+			<h:form id="loginForm" prependId="false">
+
+				<h:panelGrid columns="3">
+
+					<h:outputLabel for="username" value="User: * " />
+					<h:inputText id="username" required="true" label="username"
+						value="#{loginController.userName}" />
+					<h:message for="username" display="text" style="color:red" />
+
+
+					<h:outputLabel for="password" value="Password: * " />
+					<h:inputSecret id="password" label="password" required="true"
+						value="#{loginController.password}" />
+					<h:message for="password" display="text" style="color:red" />
+
+
+
+
+				</h:panelGrid>
+
+
+				<p:commandButton value="Login" action="#{loginController.doLogin()}" />
+
+
+
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>

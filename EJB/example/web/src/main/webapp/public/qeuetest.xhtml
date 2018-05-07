@@ -1,0 +1,60 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/masterLayout.xhtml"
+	xmlns:sec="http://www.springframework.org/security/tags">
+	<ui:define name="pageTitle">#{out.hello}</ui:define>
+	<ui:define name="content">
+		<div class="row">
+			<div class="col-md-12">
+				<h:form id="form">
+					<div class="row">
+					<div class="col-md-2">
+							<p:outputLabel value="Message">
+							</p:outputLabel>
+						</div>
+						<div class="col-md-2">
+							<p:inputText value="#{queueTestBean.message}">
+							</p:inputText>
+						</div>
+						<div class="col-md-2">
+							<p:commandButton value="Send A"
+								actionListener="#{queueTestBean.sendMessageTypeA}">
+							</p:commandButton>
+						</div>
+						<div class="col-md-2">
+							<p:commandButton value="Send B"
+								actionListener="#{queueTestBean.sendMessageTypeB}">
+							</p:commandButton>
+						</div>
+						<div class="col-md-4">
+							<p:commandButton value="Send Sync" update="form"
+								actionListener="#{queueTestBean.sendMessageSync}">
+							</p:commandButton>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-2">
+							<p:outputLabel value="#{queueTestBean.responseMessage}">
+							</p:outputLabel>
+						</div>
+						<div class="col-md-2">
+							<p:outputLabel value="#{queueTestBean.messageCount}">
+							</p:outputLabel>
+						</div>
+						<div class="col-md-2">
+							<p:commandButton value="Recive" update="form" actionListener="#{queueTestBean.read}">
+							</p:commandButton>
+						</div>
+
+					</div>
+
+				</h:form>
+
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
