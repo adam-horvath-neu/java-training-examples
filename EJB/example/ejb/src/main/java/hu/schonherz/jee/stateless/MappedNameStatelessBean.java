@@ -5,6 +5,7 @@ import java.util.concurrent.Future;
 
 import javax.ejb.AsyncResult;
 import javax.ejb.Asynchronous;
+import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
@@ -19,10 +20,11 @@ import hu.schonherz.jee.NoSerializabledVO;
 import hu.schonherz.jee.SerializabledVO;
 import hu.schonherz.jee.interceptor.SimpleInterceptor;
 
-@Stateless( mappedName = "ejb/NewNameForMappedNameStatelessBean")
+@Stateless()
 @Local(MappedNameStatelessLocal.class)
 @Remote(MappedNameStatelessRemote.class)
 @Interceptors(SimpleInterceptor.class)
+@EJB(name = MappedNameStatelessRemote.JAVA_GLOBAL_MAPPED_NAME, beanInterface = MappedNameStatelessRemote.class)
 public class MappedNameStatelessBean implements MappedNameStatelessLocal, MappedNameStatelessRemote {
 	private static Log logger = LogFactory.getLog(MappedNameStatelessBean.class);
 

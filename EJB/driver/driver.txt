@@ -1,0 +1,4 @@
+<driver name="postgres" module="org.postgres">
+   <xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>
+   <datasource-class>org.postgresql.ds.PGPoolingDataSource</datasource-class>
+</driver>

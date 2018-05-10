@@ -1,6 +1,7 @@
 package hu.schonherz.jee;
 
 public interface MappedNameStatelessRemote {
+	public static final String JAVA_GLOBAL_MAPPED_NAME = "java:global/MappedNameStatelessRemote";
 
 	public void hello();
 

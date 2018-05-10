@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+	version="2.0">
+
+	<persistence-unit name="hu.neuron.java.jpa"
+		transaction-type="JTA">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<jta-data-source>java:/PostgresXADS</jta-data-source>
+		<class>hu.schonhertz.training.blog.entity.BaseEntity</class>
+		<class>hu.schonhertz.training.blog.entity.Blog</class>
+		<class>hu.schonhertz.training.blog.entity.Comment</class>
+		<class>hu.schonhertz.training.blog.entity.Role</class>
+		<class>hu.schonhertz.training.blog.entity.User</class>
+		<exclude-unlisted-classes>false</exclude-unlisted-classes>
+
+		<properties>
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+			<property name="hibernate.dialect"
+				value="org.hibernate.dialect.PostgreSQLDialect" />
+			<property name="hibernate.hbm2ddl.auto" value="create" />
+			<property name="hibernate.default_schema" value="public" />
+			<property name="hibernate.hbm2ddl.import_files" value="create.sql"/>
+		</properties>
+
+	</persistence-unit>
+</persistence>

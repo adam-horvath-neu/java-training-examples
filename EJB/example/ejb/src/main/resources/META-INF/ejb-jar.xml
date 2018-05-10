@@ -6,7 +6,6 @@
 	<display-name>ejb</display-name>
 	<assembly-descriptor>
 		<interceptor-binding>
-		
 			<ejb-name>*</ejb-name>
 			<interceptor-class>hu.schonherz.jee.interceptor.DeafultInterceptor</interceptor-class>
 		</interceptor-binding>

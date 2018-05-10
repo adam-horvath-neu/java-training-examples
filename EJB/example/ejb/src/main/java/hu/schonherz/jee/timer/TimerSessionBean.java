@@ -29,8 +29,8 @@ public class TimerSessionBean {
 	public void createTimer(long intervalDuration) {
 
 		// Timer timer = timerService.createTimer(intervalDuration, MY_TIMER);
-
-		TimerConfig timerConfig = new TimerConfig(MY_TIMER, true);
+		stopTimer();
+		TimerConfig timerConfig = new TimerConfig(MY_TIMER, false);
 		timerService.createIntervalTimer(0, intervalDuration, timerConfig);
 
 	}
