@@ -21,6 +21,8 @@ public class User extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 
 	private String userName;
+	
+	private String name;
 
 	private String password;
 
@@ -53,6 +55,14 @@ public class User extends BaseEntity {
 
 	public void setRoles(Collection<Role> roles) {
 		this.roles = roles;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

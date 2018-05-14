@@ -11,7 +11,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
- * The Class User.
+ * The Class Blog.
  */
 @Entity
 @Table(name = "Blog")

@@ -1,0 +1,39 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/template/masterLayout.xhtml">
+
+	<ui:define name="content">
+		<h:form id="userForm">
+			<p:dataTable value="#{userBean.users}" var="user">
+
+				<p:column headerText="username">
+					<p:outputLabel value="#{user.username}"></p:outputLabel>
+				</p:column>
+
+				<p:column headerText="username">
+					<p:outputLabel value="#{user.name}"></p:outputLabel>
+				</p:column>
+
+			</p:dataTable>
+
+
+			<p:panelGrid columns="2">
+				<p:outputLabel value="username :"></p:outputLabel>
+				<p:inputText value="#{userBean.user.username}"></p:inputText>
+				<p:outputLabel value="name :"></p:outputLabel>
+				<p:inputText value="#{userBean.user.name}"></p:inputText>
+
+
+				<f:facet name="footer">
+					<p:commandButton value="Add user"
+						actionListener="#{userBean.addUser()}" update="userForm"></p:commandButton>
+				</f:facet>
+			</p:panelGrid>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

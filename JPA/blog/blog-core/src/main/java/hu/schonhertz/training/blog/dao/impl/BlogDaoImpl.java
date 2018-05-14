@@ -19,6 +19,7 @@ public class BlogDaoImpl implements BlogDao {
 
 	@PersistenceContext
 	protected EntityManager entityManager;
+	
 
 	@Override
 	public Long save(BlogDto dto) throws Exception {

@@ -1,6 +1,8 @@
 package hu.schonhertz.training.blog.entity;
 
+import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 
@@ -14,6 +16,7 @@ public class Comment extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 
 	@Lob
+	@Basic(fetch=FetchType.LAZY)
 	private String comment;
 
 
