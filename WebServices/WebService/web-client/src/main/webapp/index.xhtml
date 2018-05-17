@@ -1,0 +1,49 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/masterLayout.xhtml">
+
+	<ui:define name="pageTitle">#{out.admin_title}</ui:define>
+	<ui:define name="header"> -> #{out.admin_title}</ui:define>
+
+
+	<ui:define name="content">
+
+
+
+		<p:panel id="WebServiceExample" header="WebServiceExample"
+			footer="WebServiceExample" style="margin-bottom:20px">
+			<h:form id="form">
+
+				<p:inputText required="true" value="#{serviceTestBean.message}"
+					requiredMessage="Kötelező megadni!" />
+
+				<p:commandButton value="Start" update="form"
+					actionListener="#{serviceTestBean.test}" />
+
+
+				<h:outputText id="txt_count" value="#{serviceTestBean.echo}" />
+
+			</h:form>
+		</p:panel>
+		<p:panel id="WebServiceExampleRef" header="WebServiceExampleRef"
+			footer="WebServiceExampleRef" style="margin-bottom:20px">
+			<h:form id="formref">
+
+				<p:inputText required="true" value="#{serviceTestBean.message}"
+					requiredMessage="Kötelező megadni!" />
+
+				<p:commandButton value="Start" update="formref"
+					actionListener="#{serviceTestBean.testRef}" />
+
+
+				<h:outputText id="txt_count" value="#{serviceTestBean.echo}" />
+
+			</h:form>
+		</p:panel>
+
+	</ui:define>
+</ui:composition>

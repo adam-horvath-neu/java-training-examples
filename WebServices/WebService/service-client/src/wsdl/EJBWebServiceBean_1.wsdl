@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="EJBWebServiceBeanService" targetNamespace="http://imp.webservice.java.neuron.hu/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://imp.webservice.java.neuron.hu/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http">
+  <wsdl:types>
+    <xs:schema elementFormDefault="unqualified" targetNamespace="http://imp.webservice.java.neuron.hu/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="sendMesage" type="tns:sendMesage"/>
+      <xs:element name="sendMesageResponse" type="tns:sendMesageResponse"/>
+      <xs:complexType name="sendMesage">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="vo" type="tns:webServiceTestVo"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="webServiceTestVo">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="message" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="sendMesageResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="result" type="tns:webServiceTestVo"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="sendMesageResponse">
+    <wsdl:part element="tns:sendMesageResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="sendMesage">
+    <wsdl:part element="tns:sendMesage" name="parameters"/>
+  </wsdl:message>
+  <wsdl:portType name="EJBWebServiceBean">
+    <wsdl:operation name="sendMesage">
+      <wsdl:input message="tns:sendMesage" name="sendMesage"/>
+      <wsdl:output message="tns:sendMesageResponse" name="sendMesageResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="EJBWebServiceBeanServiceSoapBinding" type="tns:EJBWebServiceBean">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="sendMesage">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="sendMesage">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="sendMesageResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="EJBWebServiceBeanService">
+    <wsdl:port binding="tns:EJBWebServiceBeanServiceSoapBinding" name="EJBWebServiceBeanPort">
+      <soap:address location="http://localhost:8080/ejb-service/EJBWebServiceBean"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>webservice-example</artifactId>
+		<groupId>hu.neuron.java</groupId>
+		<version>1.0</version>
+	</parent>
+
+	<artifactId>ear-service</artifactId>
+	<packaging>ear</packaging>
+
+	<name>ear-service</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<dependencies>
+
+		<dependency>
+			<groupId>hu.neuron.java</groupId>
+			<artifactId>web-service</artifactId>
+			<type>war</type>
+			<version>${version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>hu.neuron.java</groupId>
+			<artifactId>service</artifactId>
+			<version>1.0</version>
+			<type>ejb</type>
+		</dependency>
+
+	</dependencies>
+	<build>
+
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ear-plugin</artifactId>
+				<version>3.0.0</version>
+				<configuration>
+					<version>7</version>
+					<defaultLibBundleDir>lib</defaultLibBundleDir>
+					<modules>
+						<webModule>
+							<groupId>hu.neuron.java</groupId>
+							<artifactId>web-service</artifactId>
+							<contextRoot>service</contextRoot>
+							<bundleFileName>service.war</bundleFileName>
+						</webModule>
+						<ejbModule>
+							<groupId>hu.neuron.java</groupId>
+							<artifactId>service</artifactId>
+							<bundleFileName>ejb-service.jar</bundleFileName>
+						</ejbModule>
+					</modules>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
+
+</project>

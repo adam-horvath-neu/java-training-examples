@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns="http://wadl.dev.java.net/2009/02"><doc
+        jersey:generatedBy="Jersey: 1.19.4 05/24/2017 03:20 PM"
+        xmlns:jersey="http://jersey.java.net/"/><doc
+        title="A message in the WADL"
+            xml:lang="en"><![CDATA[This is added to the start of the generated application.wadl]]></doc><grammars><include
+        href="xsd0.xsd"><doc/></include></grammars><resources
+            base="http://localhost:8080/service/resources"><resource
+                path="/users"><resource path="/save"><method id="save"
+                            name="PUT"><request><ns2:representation
+                            element="UserVo"
+                            mediaType="application/json"
+                            xmlns:ns2="http://wadl.dev.java.net/2009/02"
+                            xmlns=""/><ns2:representation
+                            element="UserVo" mediaType="application/xml"
+                            xmlns:ns2="http://wadl.dev.java.net/2009/02"
+                            xmlns=""/></request><response><ns2:representation
+                            element="UserVo"
+                            mediaType="application/json"
+                            xmlns:ns2="http://wadl.dev.java.net/2009/02"
+                            xmlns=""/><ns2:representation
+                            element="UserVo" mediaType="application/xml"
+                            xmlns:ns2="http://wadl.dev.java.net/2009/02"
+                xmlns=""/></response></method></resource><resource
+                    path="/{username}"><param name="username"
+                    style="template" type="xs:string"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"/><method
+                    id="getUser"
+                            name="GET"><response><ns2:representation
+                            element="UserVo"
+                            mediaType="application/json"
+                            xmlns:ns2="http://wadl.dev.java.net/2009/02"
+                            xmlns=""/><ns2:representation
+                            element="UserVo" mediaType="application/xml"
+                            xmlns:ns2="http://wadl.dev.java.net/2009/02"
+                xmlns=""/></response></method></resource><resource
+                    path="/list"><method id="getUserList"
+                            name="GET"><response><ns2:representation
+                            element="UserVoList"
+                            mediaType="application/json"
+                            xmlns:ns2="http://wadl.dev.java.net/2009/02"
+                xmlns=""/></response></method></resource><resource
+                    path="/id"><method id="getUserById"
+                            name="GET"><request><param name="id"
+                            style="query" type="xs:long"
+                            xmlns:xs="http://www.w3.org/2001/XMLSchema"/></request><response><ns2:representation
+                            element="UserVo"
+                            mediaType="application/json"
+                            xmlns:ns2="http://wadl.dev.java.net/2009/02"
+                            xmlns=""/><ns2:representation
+                            element="UserVo" mediaType="application/xml"
+                            xmlns:ns2="http://wadl.dev.java.net/2009/02" xmlns=""/></response></method></resource></resource></resources></application>

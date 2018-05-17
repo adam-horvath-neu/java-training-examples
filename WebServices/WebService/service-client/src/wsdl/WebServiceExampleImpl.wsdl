@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="WebServiceExample" targetNamespace="http://ws.java.neuron.hu/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns1="http://ws.java.neuron.hu/">
+  <wsdl:types>
+    <xs:schema elementFormDefault="unqualified" targetNamespace="http://ws.java.neuron.hu/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://ws.java.neuron.hu/">
+      <xs:element name="echo" type="tns:echo"/>
+      <xs:element name="echoResponse" type="tns:echoResponse"/>
+      <xs:complexType name="echo">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="echoResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="echoResponse">
+    <wsdl:part element="ns1:echoResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="echo">
+    <wsdl:part element="ns1:echo" name="parameters"/>
+  </wsdl:message>
+  <wsdl:portType name="WebServiceExample">
+    <wsdl:operation name="echo">
+      <wsdl:input message="ns1:echo" name="echo"/>
+      <wsdl:output message="ns1:echoResponse" name="echoResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

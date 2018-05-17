@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>webservice-example</artifactId>
+		<groupId>hu.neuron.java</groupId>
+		<version>1.0</version>
+	</parent>
+
+	<groupId>hu.neuron.java.ear</groupId>
+	<artifactId>ear-client</artifactId>
+	<packaging>ear</packaging>
+
+	<name>ear-client</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>hu.neuron.java</groupId>
+			<artifactId>web-client</artifactId>
+			<type>war</type>
+			<version>${version}</version>
+		</dependency>
+
+
+	</dependencies>
+	<build>
+
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ear-plugin</artifactId>
+				<version>3.0.0</version>
+				<configuration>
+					<version>7</version>
+					<defaultLibBundleDir>lib</defaultLibBundleDir>
+					<modules>
+						<webModule>
+							<groupId>hu.neuron.java</groupId>
+							<artifactId>web-client</artifactId>
+							<contextRoot>client</contextRoot>
+							<bundleFileName>client.war</bundleFileName>
+						</webModule>
+					</modules>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>weblogic-maven-plugin</artifactId>
+				<version>2.9.1</version>
+				<dependencies>
+					<dependency>
+						<groupId>weblogic</groupId>
+						<artifactId>wlfullclient</artifactId>
+						<version>10.3</version>
+					</dependency>
+					<dependency>
+						<groupId>org.apache.beehive</groupId>
+						<artifactId>beehive-netui-core</artifactId>
+						<version>1.0.2</version>
+					</dependency>
+				</dependencies>
+				<inherited>true</inherited>
+				<configuration>
+					<name>${project.artifactId}</name>
+					<adminServerHostName>localhost</adminServerHostName>
+					<adminServerPort>7001</adminServerPort>
+					<adminServerProtocol>t3</adminServerProtocol>
+					<userId>weblogic</userId>
+					<password>weblogic1</password>
+					<upload>true</upload>
+					<remote>false</remote>
+					<verbose>true</verbose>
+					<debug>true</debug>
+					<targetNames>AdminServer</targetNames>
+					<noExit>true</noExit>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
