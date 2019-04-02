@@ -12,7 +12,6 @@
 		<class>hu.neuron.pizza.core.entity.Customer</class>
 		<class>hu.neuron.pizza.core.entity.Order</class>
 		<class>hu.neuron.pizza.core.entity.Pizza</class>
-		<class>hu.neuron.pizza.core.entity.Recipe</class>
 		<class>hu.neuron.pizza.core.entity.Role</class>
 		<class>hu.neuron.pizza.core.entity.Topping</class>
 		<class>hu.neuron.pizza.core.entity.User</class>
@@ -22,7 +21,7 @@
 			<property name="hibernate.default_schema" value="public" />
 			<property name="hibernate.dialect"
 				value="org.hibernate.dialect.PostgreSQL82Dialect" />
-			<property name="hibernate.hbm2ddl.auto" value="create" />
+<!-- 			<property name="hibernate.hbm2ddl.auto" value="create" /> -->
 
 		</properties>
 	</persistence-unit>

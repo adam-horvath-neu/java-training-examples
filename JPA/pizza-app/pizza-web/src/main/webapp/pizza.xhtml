@@ -1,0 +1,46 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+	<h:form id="userForm">
+		<div class="pizza-container">
+			<ui:repeat var="pizza" value="#{pizzaBean.availablePizzas}">
+				<div class="pizza-box mb-4 box-shadow">
+					<div class="pizza-header">
+						<h:outputText styleClass="pizza-title" value="#{pizza.name}"></h:outputText>
+						<h:outputText styleClass="pizza-price" value="#{pizza.price} Ft"></h:outputText>
+					</div>
+					<hr />
+					<div class="pizza-content">
+						<div>
+							<h:graphicImage value="#{pizza.imageUrl}"></h:graphicImage>
+						</div>
+						<div>
+							<div class="pizza-details">
+								<div class="pizza-toppings">
+									<h:outputText styleClass="toppings-title"
+										value="#{msg['hu.neuron.pizza.toppings']}:"></h:outputText>
+									<br />
+									<ui:repeat var="topping" value="#{pizza.toppings}"
+										varStatus="varStatus">
+										<h:outputText value="#{topping.name}"></h:outputText>
+										<h:outputText value=", "
+											rendered="#{fn:length(pizza.toppings) - 1 gt varStatus.index}"></h:outputText>
+									</ui:repeat>
+								</div>
+								<div class="order-button">
+									<p:commandButton value="#{msg['hu.neuron.pizza.order']}"></p:commandButton>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</ui:repeat>
+		</div>
+	</h:form>
+</ui:composition>

@@ -1,21 +1,16 @@
-package hu.neuron.pizza.core.entity;
+package hu.neuron.pizza.service.vo.pizza;
 
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
+import hu.neuron.pizza.service.vo.BaseVo;
 
-@Entity
-public class Pizza extends BaseEntity {
-	private static final long serialVersionUID = 1L;
+public class PizzaVo extends BaseVo {
 
 	private String name;
 	private Long price;
 	private String imageUrl;
+	private List<ToppingVo> toppings;
 
-	@ManyToMany
-	private List<Topping> toppings;
-	
 	public String getName() {
 		return name;
 	}
@@ -40,13 +35,12 @@ public class Pizza extends BaseEntity {
 		this.imageUrl = imageUrl;
 	}
 
-	public List<Topping> getToppings() {
+	public List<ToppingVo> getToppings() {
 		return toppings;
 	}
 
-	public void setToppings(List<Topping> toppings) {
+	public void setToppings(List<ToppingVo> toppings) {
 		this.toppings = toppings;
 	}
-
 
 }

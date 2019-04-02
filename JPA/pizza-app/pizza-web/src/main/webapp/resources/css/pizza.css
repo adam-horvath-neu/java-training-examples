@@ -1,0 +1,111 @@
+:root { -
+	-jumbotron-padding-y: 3rem;
+}
+
+.jumbotron {
+	padding-top: var(- -jumbotron-padding-y);
+	padding-bottom: var(- -jumbotron-padding-y);
+	margin-bottom: 0;
+	background-color: #fff;
+}
+
+@media ( min-width : 768px) {
+	.jumbotron {
+		padding-top: calc(var(- -jumbotron-padding-y)* 2);
+		padding-bottom: calc(var(- -jumbotron-padding-y)* 2);
+	}
+}
+
+.jumbotron p:last-child {
+	margin-bottom: 0;
+}
+
+.jumbotron-heading {
+	font-weight: 300;
+}
+
+.jumbotron .container {
+	max-width: 40rem;
+}
+
+footer {
+	padding-top: 3rem;
+	padding-bottom: 3rem;
+}
+
+footer p {
+	margin-bottom: .25rem;
+}
+
+.box-shadow {
+	box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+.nav-icon {
+	margin-right: 10px;
+}
+
+.offer-title {
+	font-size: 32px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.pizza-container {
+	display: flex;
+	flex-wrap: wrap
+}
+
+.pizza-container .pizza-box {
+	flex-basis: calc(33% - 20px);
+	margin: 10px;
+	padding: 10px;
+}
+
+.pizza-container .pizza-title {
+	font-weight: bold;
+}
+
+.pizza-container .pizza-price {
+	float: right;
+}
+
+.pizza-container .pizza-content {
+	display: flex;
+}
+
+.pizza-container .pizza-box hr {
+	margin-top: 5px;
+	margin-bottom: 15px;
+}
+
+.pizza-container .pizza-content>div {
+	flex-basis: 50%;
+	position: relative;
+}
+
+.pizza-container .pizza-details {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	justify-content: space-between;
+	position: absolute;
+}
+
+.pizza-container .pizza-toppings .toppings-title {
+	font-weight: bold;
+}
+
+.pizza-container .pizza-toppings {
+	font-size: 12px;
+	padding: 10px;
+}
+
+.pizza-container .pizza-box img {
+	width: 100%;
+}
+
+.pizza-container .order-button {
+	font-size: 12px;
+	text-align: center;
+}

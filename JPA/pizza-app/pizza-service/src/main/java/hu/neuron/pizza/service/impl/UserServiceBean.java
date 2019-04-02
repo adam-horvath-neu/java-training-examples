@@ -15,12 +15,12 @@ import hu.neuron.pizza.core.dao.RoleDao;
 import hu.neuron.pizza.core.dao.UserDao;
 import hu.neuron.pizza.core.entity.Role;
 import hu.neuron.pizza.core.entity.User;
-import hu.neuron.pizza.service.UserServiceLocal;
-import hu.neuron.pizza.service.UserServiceRemote;
 import hu.neuron.pizza.service.mapper.RoleMapper;
 import hu.neuron.pizza.service.mapper.UserMapper;
-import hu.neuron.pizza.service.vo.RoleVo;
-import hu.neuron.pizza.service.vo.UserVo;
+import hu.neuron.pizza.service.user.UserServiceLocal;
+import hu.neuron.pizza.service.user.UserServiceRemote;
+import hu.neuron.pizza.service.vo.user.RoleVo;
+import hu.neuron.pizza.service.vo.user.UserVo;
 
 @Stateless
 @Local(UserServiceLocal.class)

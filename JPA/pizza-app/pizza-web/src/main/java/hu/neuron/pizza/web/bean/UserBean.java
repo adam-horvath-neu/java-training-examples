@@ -7,8 +7,9 @@ import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
-import hu.neuron.pizza.service.UserServiceLocal;
-import hu.neuron.pizza.service.vo.UserVo;
+import hu.neuron.pizza.service.user.UserServiceLocal;
+import hu.neuron.pizza.service.vo.user.UserVo;
+
 import java.io.Serializable;
 
 @Named("userBean")

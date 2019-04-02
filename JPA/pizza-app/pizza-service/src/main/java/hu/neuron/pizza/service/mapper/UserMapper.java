@@ -1,7 +1,7 @@
 package hu.neuron.pizza.service.mapper;
 
 import hu.neuron.pizza.core.entity.User;
-import hu.neuron.pizza.service.vo.UserVo;
+import hu.neuron.pizza.service.vo.user.UserVo;
 
 public class UserMapper extends GenericMapper<User, UserVo> {
 

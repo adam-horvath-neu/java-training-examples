@@ -9,16 +9,6 @@ public class Topping extends BaseEntity {
 
 	private String name;
 
-	private Long price;
-
-	public Long getPrice() {
-		return price;
-	}
-
-	public void setPrice(Long price) {
-		this.price = price;
-	}
-
 	public String getName() {
 		return name;
 	}

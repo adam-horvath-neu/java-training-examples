@@ -1,7 +1,7 @@
 package hu.neuron.pizza.service.mapper;
 
 import hu.neuron.pizza.core.entity.Role;
-import hu.neuron.pizza.service.vo.RoleVo;
+import hu.neuron.pizza.service.vo.user.RoleVo;
 
 public class RoleMapper extends GenericMapper<Role, RoleVo> {
 
